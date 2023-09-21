@@ -32,7 +32,10 @@ struct TreeNode {
 
 class Solution {
     int ans = 0;
-    tuple<int, int, bool> dfs(TreeNode *node) {
+    /// @brief 返回的是该节点子树的最大节点值和最小节点值，和 sum。如果节点不为二叉搜索数，最小值为 是 -inf 最大值是 inf 这时候，递的过程中，进行判断的时候一直可以向上传递为不符合条件
+    /// @param node
+    /// @return
+    tuple<int, int, int> dfs(TreeNode *node) {
         if (node == nullptr) {
             return {INT_MAX, INT_MIN, 0};
         }
@@ -42,7 +45,7 @@ class Solution {
         if (x <= l_max || x >= r_min) { // 判断是否是搜索二叉树
             return {INT_MIN, INT_MAX, 0};
         }
-        int s = l_sum + r_sum + node->val;
+        int s = l_sum + r_sum + x;
         ans = max(ans, s);
         return {min(l_min, x), max(r_max, x), s};
     };
